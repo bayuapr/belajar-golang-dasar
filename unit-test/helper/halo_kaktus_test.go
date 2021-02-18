@@ -9,6 +9,29 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func BenchmarkSub(b *testing.B) {
+	b.Run("Bay", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HaloKaktus("Bay")
+		}
+	})
+	b.Run("Kaktus", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HaloKaktus("Kaktus")
+		}
+	})
+}
+func BenchmarkHaloKaktus(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		HaloKaktus("Bay")
+	}
+}
+
+func BenchmarkHalobay(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		HaloKaktus("kkkeee")
+	}
+}
 func TestMain(m *testing.M) {
 	fmt.Println("BEFORE UNIT TEST")
 
@@ -18,7 +41,7 @@ func TestMain(m *testing.M) {
 }
 
 func TestSkip(t *testing.T) {
-	if runtime.GOOS == "darwin" {
+	if runtime.GOOS == "linux" {
 		t.Skip("Can not run on Linux Manjaro")
 	}
 
